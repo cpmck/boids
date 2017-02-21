@@ -20,14 +20,17 @@ y_init_vel_max = 20
 num_boids = 50
 
 
-boids_x_np = np.random.uniform(x_init_pos_min, x_init_pos_max, num_boids)
-boids_y_np = np.random.uniform(y_init_pos_min, y_init_pos_max, num_boids)
-
-boid_x_velocities_np = np.random.uniform(x_init_vel_min,x_init_vel_max,num_boids)
-boid_y_velocities_np = np.random.uniform(y_init_vel_min,y_init_vel_max,num_boids)
 
 
-boids_np = np.concatenate((boids_x_np, boids_y_np, boid_x_velocities_np, boid_y_velocities_np), axis=0)
+
+boids_x_np = np.array(np.random.uniform(x_init_pos_min, x_init_pos_max, num_boids))
+boids_y_np = np.array(np.random.uniform(y_init_pos_min, y_init_pos_max, num_boids))
+
+boid_x_velocities_np = np.array(np.random.uniform(x_init_vel_min,x_init_vel_max,num_boids))
+boid_y_velocities_np = np.array(np.random.uniform(y_init_vel_min,y_init_vel_max,num_boids))
+
+boids_np = np.column_stack((boids_x_np, boids_y_np, boid_x_velocities_np, boid_y_velocities_np))
+
 
 #print(boids_np)
 
@@ -47,10 +50,14 @@ match_strength = 0.125
 
 retreat_dist = 10
 
+#test = np.broadcast(boids_np[:,1], boids_np[1,1])
 
-def update_boids(boids, middle_strength, match_strength, num_boids):
+def update_boids(boids, middle_strength, match_strength, num_boids, boids_np):
 	xs,ys,xvs,yvs = boids
-	#fly towards middle
+	
+	#fly towards middle refactored to numpy
+	for i in range(num_boids): boids_np[:,2] = boids_np[:,2] + (boids_np[i,0] - boids_np[:,0] )*middle_strength/len(boids_np[:,0])
+	for i in range(num_boids): boids_np[:,3] = boids_np[:,3] + (boids_np[i,1] - boids_np[:,1] )*middle_strength/len(boids_np[:,1])
 
 
 	for i in range(num_boids):
@@ -59,6 +66,8 @@ def update_boids(boids, middle_strength, match_strength, num_boids):
 	for i in range(num_boids):
 		for j in range(num_boids):
 			yvs[i] = yvs[i] + ( ys[j] - ys[i])*middle_strength/len(xs)
+
+
 
 	#fly away from nearby boids
 	for i in range(num_boids):
@@ -89,7 +98,7 @@ axes = plt.axes(xlim=(x_init_pos_min - x_margin, x_init_pos_max + x_margin), yli
 scatter = axes.scatter(boids[0],boids[1])
 
 def animate(frame):
-	update_boids(boids,middle_strength, match_strength, num_boids)
+	update_boids(boids,middle_strength, match_strength, num_boids, boids_np)
 	scatter.set_offsets(zip(boids[0],boids[1]))
 
 anim = animation.FuncAnimation(figure, animate, frames = 3, interval = 50)
