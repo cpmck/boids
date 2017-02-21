@@ -56,9 +56,13 @@ def update_boids(boids, middle_strength, match_strength, num_boids, boids_np):
 	xs,ys,xvs,yvs = boids
 	
 	#fly towards middle refactored to numpy
-	for i in range(num_boids): boids_np[:,2] = boids_np[:,2] + (boids_np[i,0] - boids_np[:,0] )*middle_strength/len(boids_np[:,0])
-	for i in range(num_boids): boids_np[:,3] = boids_np[:,3] + (boids_np[i,1] - boids_np[:,1] )*middle_strength/len(boids_np[:,1])
+	for i in range(num_boids):
+		boids_np[:,2] = boids_np[:,2] + (boids_np[i,0] - boids_np[:,0] )*middle_strength/len(boids_np[:,0])
+		boids_np[:,3] = boids_np[:,3] + (boids_np[i,1] - boids_np[:,1] )*middle_strength/len(boids_np[:,1])
 
+		target_indices = ( boids_np[i,0]-boids_np[:,0] )**2 + ( boids_np[i,1]-boids_np[:,1] )**2 < 100
+
+		boids_np[target_indices,2] = boids_np[target_indices,2] + ( boids_np[:,0] - boids_np[i,0] )*target_indices
 
 	for i in range(num_boids):
 		for j in range(num_boids):
@@ -67,7 +71,7 @@ def update_boids(boids, middle_strength, match_strength, num_boids, boids_np):
 		for j in range(num_boids):
 			yvs[i] = yvs[i] + ( ys[j] - ys[i])*middle_strength/len(xs)
 
-
+	
 
 	#fly away from nearby boids
 	for i in range(num_boids):
