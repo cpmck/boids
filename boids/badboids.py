@@ -60,9 +60,20 @@ def update_boids(boids, middle_strength, match_strength, num_boids, boids_np):
 		boids_np[:,2] = boids_np[:,2] + (boids_np[i,0] - boids_np[:,0] )*middle_strength/len(boids_np[:,0])
 		boids_np[:,3] = boids_np[:,3] + (boids_np[i,1] - boids_np[:,1] )*middle_strength/len(boids_np[:,1])
 
+	#
+	for i in range(num_boids):
 		target_indices = ( boids_np[i,0]-boids_np[:,0] )**2 + ( boids_np[i,1]-boids_np[:,1] )**2 < 100
+		boids_np[:,2] = boids_np[:,2] + ( boids_np[:,0] - boids_np[i,0] )*target_indices.astype(int)
+		boids_np[:,3] = boids_np[:,3] + ( boids_np[:,1] - boids_np[i,1] )*target_indices.astype(int)
 
-		boids_np[target_indices,2] = boids_np[target_indices,2] + ( boids_np[:,0] - boids_np[i,0] )*target_indices
+
+	for i in range(num_boids):
+		target_indices = ( boids_np[i,0]-boids_np[:,0] )**2 + ( boids_np[i,1]-boids_np[:,1] )**2 < 1000
+		boids_np[:,2] = boids_np[:,2] + ( boids_np[:,0] - boids_np[i,0] )*match_strength/num_boids*target_indices.astype(int)
+		boids_np[:,3] = boids_np[:,3] + ( boids_np[:,1] - boids_np[i,1] )*match_strength/num_boids*target_indices.astype(int)
+
+	boids_np[:,0] = boids_np[:,0] + boids_np[:,2]
+	boids_np[:,1] = boids_np[:,1] + boids_np[:,3]
 
 	for i in range(num_boids):
 		for j in range(num_boids):
@@ -99,7 +110,7 @@ y_margin = 1000
 
 figure = plt.figure()
 axes = plt.axes(xlim=(x_init_pos_min - x_margin, x_init_pos_max + x_margin), ylim = (y_init_pos_min - y_margin,y_init_pos_max + y_margin))
-scatter = axes.scatter(boids[0],boids[1])
+scatter = axes.scatter(boids_np[0],boids_np[1])
 
 def animate(frame):
 	update_boids(boids,middle_strength, match_strength, num_boids, boids_np)
