@@ -23,6 +23,13 @@ num_boids = 50
 boids_x_np = np.random.uniform(x_init_pos_min, x_init_pos_max, num_boids)
 boids_y_np = np.random.uniform(y_init_pos_min, y_init_pos_max, num_boids)
 
+boid_x_velocities_np = np.random.uniform(x_init_vel_min,x_init_vel_max,num_boids)
+boid_y_velocities_np = np.random.uniform(y_init_vel_min,y_init_vel_max,num_boids)
+
+
+boids_np = np.concatenate((boids_x_np, boids_y_np, boid_x_velocities_np, boid_y_velocities_np), axis=0)
+
+#print(boids_np)
 
 boids_x = [random.uniform(x_init_pos_min,x_init_pos_max) for x in range(num_boids)]
 boids_y = [random.uniform(y_init_pos_min,y_init_pos_max) for x in range (num_boids)]
@@ -44,10 +51,6 @@ retreat_dist = 10
 def update_boids(boids, middle_strength, match_strength, num_boids):
 	xs,ys,xvs,yvs = boids
 	#fly towards middle
-
-
-
-
 
 
 	for i in range(num_boids):
