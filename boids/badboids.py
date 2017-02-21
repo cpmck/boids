@@ -75,34 +75,36 @@ def update_boids(boids, middle_strength, match_strength, num_boids, boids_np):
 	boids_np[:,0] = boids_np[:,0] + boids_np[:,2]
 	boids_np[:,1] = boids_np[:,1] + boids_np[:,3]
 
-	for i in range(num_boids):
-		for j in range(num_boids):
-			xvs[i] = xvs[i] + ( xs[j] - xs[i])*middle_strength/len(xs)
-	for i in range(num_boids):
-		for j in range(num_boids):
-			yvs[i] = yvs[i] + ( ys[j] - ys[i])*middle_strength/len(xs)
+
+
+
+	#for i in range(num_boids):
+	#	for j in range(num_boids):
+	#		xvs[i] = xvs[i] + ( xs[j] - xs[i])*middle_strength/len(xs)
+	#for i in range(num_boids):
+	#	for j in range(num_boids):
+	#		yvs[i] = yvs[i] + ( ys[j] - ys[i])*middle_strength/len(xs)
 
 	
 
 	#fly away from nearby boids
-	for i in range(num_boids):
-		for j in range(num_boids):
-			if (xs[j]-xs[i])**2 + (ys[j]-ys[i])**2 < 10:
-				xvs[i] = xvs[i]+(xs[i]-xs[j])
-				yvs[i] = yvs[i]+(ys[i]-ys[j])
+	#for i in range(num_boids):
+	#	for j in range(num_boids):
+	#		if (xs[j]-xs[i])**2 + (ys[j]-ys[i])**2 < 10:
+	#			xvs[i] = xvs[i]+(xs[i]-xs[j])
+	#			yvs[i] = yvs[i]+(ys[i]-ys[j])
 
 	#try to match speed with nearby boids
-	for i in range(num_boids):
-		for j in range(num_boids):
-			if (xs[j]-xs[i])**2 + (ys[j]-ys[i])**2 < 1000:
-				xvs[i] = xvs[i] + ( xvs[j] - xvs[i] )*match_strength/len(xs)
-				yvs[i] = yvs[i] + ( yvs[j] - yvs[i] )*match_strength/len(xs)
+	#for i in range(num_boids):
+	#	for j in range(num_boids):
+	#		if (xs[j]-xs[i])**2 + (ys[j]-ys[i])**2 < 1000:
+	#			xvs[i] = xvs[i] + ( xvs[j] - xvs[i] )*match_strength/len(xs)
+	#			yvs[i] = yvs[i] + ( yvs[j] - yvs[i] )*match_strength/len(xs)
 
 	#move according to velocities
-	for i in range(num_boids):
-		xs[i] = xs[i] + xvs[i]
-		ys[i] = ys[i] + yvs[i]
-
+	#for i in range(num_boids):
+	#	xs[i] = xs[i] + xvs[i]
+	#	ys[i] = ys[i] + yvs[i]
 
 
 x_margin = 1000
