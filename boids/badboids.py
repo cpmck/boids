@@ -34,11 +34,11 @@ boids_np = np.column_stack((boids_x_np, boids_y_np, boid_x_velocities_np, boid_y
 
 #print(boids_np)
 
-boids_x = [random.uniform(x_init_pos_min,x_init_pos_max) for x in range(num_boids)]
-boids_y = [random.uniform(y_init_pos_min,y_init_pos_max) for x in range (num_boids)]
-boid_x_velocities = [random.uniform(x_init_vel_min,y_init_vel_max) for x in range(num_boids)]
-boid_y_velocities = [random.uniform(y_init_vel_min,y_init_vel_max) for x in range(num_boids)]
-boids = (boids_x, boids_y, boid_x_velocities, boid_y_velocities)
+#boids_x = [random.uniform(x_init_pos_min,x_init_pos_max) for x in range(num_boids)]
+#boids_y = [random.uniform(y_init_pos_min,y_init_pos_max) for x in range (num_boids)]
+#boid_x_velocities = [random.uniform(x_init_vel_min,y_init_vel_max) for x in range(num_boids)]
+#boid_y_velocities = [random.uniform(y_init_vel_min,y_init_vel_max) for x in range(num_boids)]
+#boids = (boids_x, boids_y, boid_x_velocities, boid_y_velocities)
 
 
 #print(boids_x_np)
@@ -52,8 +52,8 @@ retreat_dist = 10
 
 #test = np.broadcast(boids_np[:,1], boids_np[1,1])
 
-def update_boids(boids, middle_strength, match_strength, num_boids, boids_np):
-	xs,ys,xvs,yvs = boids
+def update_boids(middle_strength, match_strength, num_boids, boids_np):
+	#xs,ys,xvs,yvs = boids
 	
 	#fly towards middle refactored to numpy
 	for i in range(num_boids):
@@ -63,14 +63,14 @@ def update_boids(boids, middle_strength, match_strength, num_boids, boids_np):
 	#
 	for i in range(num_boids):
 		target_indices = ( boids_np[i,0]-boids_np[:,0] )**2 + ( boids_np[i,1]-boids_np[:,1] )**2 < 100
-		boids_np[:,2] = boids_np[:,2] + ( boids_np[:,0] - boids_np[i,0] )*target_indices.astype(int)
-		boids_np[:,3] = boids_np[:,3] + ( boids_np[:,1] - boids_np[i,1] )*target_indices.astype(int)
+		boids_np[:,2] = boids_np[:,2] + ( boids_np[:,0] - boids_np[i,0] )*target_indices.astype(float)
+		boids_np[:,3] = boids_np[:,3] + ( boids_np[:,1] - boids_np[i,1] )*target_indices.astype(float)
 
 
 	for i in range(num_boids):
-		target_indices = ( boids_np[i,0]-boids_np[:,0] )**2 + ( boids_np[i,1]-boids_np[:,1] )**2 < 1000
-		boids_np[:,2] = boids_np[:,2] + ( boids_np[:,0] - boids_np[i,0] )*match_strength/num_boids*target_indices.astype(int)
-		boids_np[:,3] = boids_np[:,3] + ( boids_np[:,1] - boids_np[i,1] )*match_strength/num_boids*target_indices.astype(int)
+		target_indices = ( boids_np[i,0]-boids_np[:,0] )**2 + ( boids_np[i,1]-boids_np[:,1] )**2 < 100
+		boids_np[:,2] = boids_np[:,2] + ( boids_np[:,2] - boids_np[i,2] )*match_strength/num_boids*target_indices.astype(float)
+		boids_np[:,3] = boids_np[:,3] + ( boids_np[:,3] - boids_np[i,3] )*match_strength/num_boids*target_indices.astype(float)
 
 	boids_np[:,0] = boids_np[:,0] + boids_np[:,2]
 	boids_np[:,1] = boids_np[:,1] + boids_np[:,3]
@@ -112,11 +112,11 @@ y_margin = 1000
 
 figure = plt.figure()
 axes = plt.axes(xlim=(x_init_pos_min - x_margin, x_init_pos_max + x_margin), ylim = (y_init_pos_min - y_margin,y_init_pos_max + y_margin))
-scatter = axes.scatter(boids_np[0],boids_np[1])
+scatter = axes.scatter(boids_np[:,0],boids_np[:,1])
 
 def animate(frame):
-	update_boids(boids,middle_strength, match_strength, num_boids, boids_np)
-	scatter.set_offsets(zip(boids[0],boids[1]))
+	update_boids(middle_strength, match_strength, num_boids, boids_np)
+	scatter.set_offsets(zip(boids_np[:,0],boids_np[:,1]))
 
 anim = animation.FuncAnimation(figure, animate, frames = 3, interval = 50)
 
