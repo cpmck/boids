@@ -31,7 +31,7 @@ scatter = axes.scatter(flying_flock.get_x(),flying_flock.get_y())
 def animate(frame):
 	scatter.set_offsets(zip(flying_flock.update_boids().get_x(), flying_flock.update_boids().get_y()))
 
-anim = animation.FuncAnimation(figure, animate, frames = 50, interval = 50)
+anim = animation.FuncAnimation(figure, animate, frames = config["frame_number"], interval = config["frame_interval"])
 
 if __name__ == "__main__":
 	plt.show()
