@@ -2,13 +2,14 @@ from matplotlib import pyplot as plt
 from matplotlib import animation
 import random
 import numpy as np
-from flock import Flock
-from flight import Flight
+from boids.flock import Flock
+from boids.flight import Flight
 from argparse import ArgumentParser
 import yaml
 
 def process():
 
+	#point to desired configuration file
 	parser = ArgumentParser(description = "simulate boids in flight")
 	parser.add_argument("--config_filename", type=str, help="configuration file name")
 	arguments = parser.parse_args()
@@ -19,11 +20,9 @@ def process():
 	#config = yaml.load(open("boids/config/config.yaml"))
 
 
-
 	num_boids = config["number_of_boids"]
 	initial_params = np.array([config["x_bounds"], config["y_bounds"]])
 	interaction_params = np.array([config["centre_attraction"], config["retreat_distance"], config["attraction_distance"], config["drag_strength"]])
-
 
 
 	#make a flock of boids and make them fly
