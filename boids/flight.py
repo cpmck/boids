@@ -16,25 +16,25 @@ class Flight(object):
 
 	def fly_apart(self):
 
-		fly_apart_range = self.interaction_params[1]
+		retreat_distance = self.interaction_params[1]
 
 		for i in range(self.num_boids()):
-			target_indices = ( self.boids[i,0]-self.boids[:,0] )**2 + ( self.boids[i,1]-self.boids[:,1] )**2 < fly_apart_range
+			target_indices = ( self.boids[i,0]-self.boids[:,0] )**2 + ( self.boids[i,1]-self.boids[:,1] )**2 < retreat_distance
 			self.boids[:,2] = self.boids[:,2] + ( self.boids[:,0] - self.boids[i,0] )*target_indices.astype(float)
 			self.boids[:,3] = self.boids[:,3] + ( self.boids[:,1] - self.boids[i,1] )*target_indices.astype(float)
 
 		return self
-		
+
 
 	def fly_together(self):
 
-		fly_together_range = self.interaction_params[2]
-		together_strength = self.interaction_params[3]
+		attraction_distance = self.interaction_params[2]
+		drag_strength = self.interaction_params[3]
 
 		for i in range(self.num_boids()):
-			target_indices = ( self.boids[i,0]-self.boids[:,0] )**2 + ( self.boids[i,1]-self.boids[:,1] )**2 < fly_together_range
-			self.boids[:,2] = self.boids[:,2] + ( self.boids[:,2] - self.boids[i,2] )*together_strength/self.num_boids()*target_indices.astype(float)
-			self.boids[:,3] = self.boids[:,3] + ( self.boids[:,3] - self.boids[i,3] )*together_strength/self.num_boids()*target_indices.astype(float)
+			target_indices = ( self.boids[i,0]-self.boids[:,0] )**2 + ( self.boids[i,1]-self.boids[:,1] )**2 < attraction_distance
+			self.boids[:,2] = self.boids[:,2] + ( self.boids[:,2] - self.boids[i,2] )*drag_strength/self.num_boids()*target_indices.astype(float)
+			self.boids[:,3] = self.boids[:,3] + ( self.boids[:,3] - self.boids[i,3] )*drag_strength/self.num_boids()*target_indices.astype(float)
 
 		return self
 
@@ -56,3 +56,4 @@ class Flight(object):
 
 	def get_y(self):
 		return self.boids[:,1]
+

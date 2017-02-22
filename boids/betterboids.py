@@ -9,22 +9,32 @@ import yaml
 
 def process():
 
-	config = yaml.load(open("boids/config/config.yaml"))
+	parser = ArgumentParser(description = "simulate boids in flight")
+	parser.add_argument("--config_filename", type=str, help="configuration file name")
+	arguments = parser.parse_args()
+
+	config_location = "boids/config/"
+
+	config = yaml.load(open(config_location+arguments.config_filename))
+	#config = yaml.load(open("boids/config/config.yaml"))
+
+
 
 	num_boids = config["number_of_boids"]
 	initial_params = np.array([config["x_bounds"], config["y_bounds"]])
-
 	interaction_params = np.array([config["centre_attraction"], config["retreat_distance"], config["attraction_distance"], config["drag_strength"]])
 
-	frame_x_min = config["x_bounds"][0]-config["x_margin"]
-	frame_x_max = config["x_bounds"][1]+config["x_margin"]
-
-	frame_y_min = config["y_bounds"][0]-config["y_margin"]
-	frame_y_max = config["y_bounds"][1]+config["y_margin"]
 
 
+	#make a flock of boids and make them fly
 	flock_of_boids = Flock(num_boids, initial_params).init_cond_matrix()
 	flying_flock = Flight(flock_of_boids,interaction_params)
+
+	#display the boids
+	frame_x_min = config["x_bounds"][0]-config["x_margin"]
+	frame_x_max = config["x_bounds"][1]+config["x_margin"]
+	frame_y_min = config["y_bounds"][0]-config["y_margin"]
+	frame_y_max = config["y_bounds"][1]+config["y_margin"]
 
 	figure = plt.figure()
 	axes = plt.axes(xlim=(frame_x_min, frame_x_max), ylim = (frame_y_min, frame_y_max))
