@@ -1,0 +1,13 @@
+x_bounds: [-500.0, 0.0, 0.0, 10.0]
+y_bounds: [-20,20,-5,5]
+number_of_boids: 50
+attraction_distance: 100
+retreat_distance: 10
+drag_strength: 0.125
+centre_attraction: 0.001
+x_margin: 500
+y_margin: 500
+frame_number: 50
+frame_interval: 50
+
+
