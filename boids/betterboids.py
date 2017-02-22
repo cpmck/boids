@@ -4,11 +4,12 @@ import random
 import numpy as np
 from flock import Flock
 from flight import Flight
+from argparse import ArgumentParser
 import yaml
 
 def process():
 
-	config = yaml.load(open("config.yaml"))
+	config = yaml.load(open("boids/config/config.yaml"))
 
 	num_boids = config["number_of_boids"]
 	initial_params = np.array([config["x_bounds"], config["y_bounds"]])
@@ -32,11 +33,18 @@ def process():
 	def animate(frame):
 		scatter.set_offsets(zip(flying_flock.update_boids().get_x(), flying_flock.update_boids().get_y()))
 
-	return animation.FuncAnimation(figure, animate, frames = config["frame_number"], interval = config["frame_interval"])
+	anim = animation.FuncAnimation(figure, animate, frames = config["frame_number"], interval = config["frame_interval"])
+
+	plt.show()
 
 
 if __name__ == "__main__":
-	plt.show()
+	process()
+		
+
+
+
+
 
 
 
