@@ -9,17 +9,10 @@ import yaml
 
 def process():
 
-	#point to desired configuration file
-	parser = ArgumentParser(description = "simulate boids in flight")
-	parser.add_argument("--config_filename", type=str, help="configuration file name")
-	arguments = parser.parse_args()
 
-	if arguments.config_filename == None:
-		config = yaml.load(open("boids/config/config.yaml"))
-	
-	if not arguments.config_filename == None:
-		config_location = "boids/config/"
-		config = yaml.load(open(config_location+arguments.config_filename))
+	_ROOT = os.path.abspath(os.path.dirname(__file__))
+    with open(os.path.join(_ROOT,'config.yaml')) as config_file:
+        config = yaml.load(config)
 
 
 	num_boids = config["number_of_boids"]
@@ -40,6 +33,7 @@ def process():
 	figure = plt.figure()
 	axes = plt.axes(xlim=(frame_x_min, frame_x_max), ylim = (frame_y_min, frame_y_max))
 	scatter = axes.scatter(flying_flock.get_x(),flying_flock.get_y())
+
 
 	def animate(frame):
 
