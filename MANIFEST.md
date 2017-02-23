@@ -1,1 +1,1 @@
-recursive-include examples *.yaml
+recursive-include boids/config *.yaml
