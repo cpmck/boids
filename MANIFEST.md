@@ -1,1 +1,1 @@
-recursive-include boids/config *.yaml
+include boids/config *.yaml
