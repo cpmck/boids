@@ -1,3 +1,3 @@
-- num_boids: 50
-  initial_params: [[-50.0, 0.0, 0.0, 10.0],[-20,20,-5,5]]
+- num_boids: 50.1
+  initial_params_in: [[-50, 0, 0, 10],[-20,20,-5,5]]
 

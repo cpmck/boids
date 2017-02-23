@@ -28,7 +28,7 @@ def process():
 	#make a flock of boids and make them fly
 	flock_of_boids = Flock(num_boids, initial_params).init_cond_matrix()
 	flying_flock = Flight(flock_of_boids,interaction_params)
-
+	print(flock_of_boids)
 	#display the boids
 	frame_x_min = config["x_bounds"][0]-config["x_margin"]
 	frame_x_max = config["x_bounds"][1]+config["x_margin"]

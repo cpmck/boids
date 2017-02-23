@@ -1,0 +1,2 @@
+- boids: [[ ]]
+  interaction_params: [0.001,100,10,10,0.125,0.3]

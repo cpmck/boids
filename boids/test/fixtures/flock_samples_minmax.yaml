@@ -1,0 +1,11 @@
+- num_boids: 50
+  initial_params_in: [[50, 0, 0, 10],[-20,20,-5,5]]
+
+- num_boids: 50
+  initial_params_in: [[-50, 0, 0, 10],[20,10,-5,5]]
+
+- num_boids: 50
+  initial_params_in: [[-50, 0, 20, 10],[-20,20,-5,5]]
+
+- num_boids: 50
+  initial_params_in: [[-50, 0, 0, 10],[-20,20,15,5]]

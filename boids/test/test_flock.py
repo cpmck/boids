@@ -15,4 +15,16 @@ def test_num_boids_positive_int():
 			for fixture in fixtures:
 				instance = Flock(**fixture)
 				with assert_raises(TypeError) as exception:
-					instance.init_cond_matrix(1.4)
+					instance.init_cond_matrix()
+
+
+def test_bounds_min_lessthan_max():
+	with open(os.path.join(os.path.dirname(__file__),
+		'fixtures','flock_samples_minmax.yaml')) as fixtures_file:
+			fixtures = yaml.load(fixtures_file)
+			for fixture in fixtures:
+				instance = Flock(**fixture)
+				with assert_raises(ValueError) as exception:
+					instance.init_cond_matrix()
+
+

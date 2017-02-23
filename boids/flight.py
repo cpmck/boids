@@ -6,6 +6,23 @@ class Flight(object):
 
 	def fly_towards_middle(self):
 
+		if type(self.boids[:,:]) == str:
+			raise TypeError("boids must be a numpy array of floats or integes")
+
+		for i in range(len(self.interaction_params)):
+			if self.interaction_params[i] == 0:
+				raise ValueError("invalid interaction parameters")
+
+		if self.boids[0,:] != 4:
+			raise ValueError("boids must be 4XN numpy array")
+
+		if self.interaction_params[0,:] !=4:
+			raise ValueError("interaction_params must have 4 values")
+
+		if self.interaction_params[0,:] == [0, 0, 0, 0]:
+			raise ValueError("interaction parameters are not valid")
+
+
 		middle_strength = self.interaction_params[0]
 		for i in range(self.num_boids()):
 			self.boids[:,2] = self.boids[:,2] + (self.boids[i,0] - self.boids[:,0] )*middle_strength/self.num_boids()
@@ -15,6 +32,24 @@ class Flight(object):
 
 
 	def fly_apart(self):
+
+		if self.interaction_params[0,:] !=4:
+			raise ValueError("interaction_params must have 4 values")
+
+		for i in range(len(self.interaction_params)):
+			if self.interaction_params[i] == 0:
+				raise ValueError("invalid interaction parameters")
+
+		if type(self.boids[:,:]) == str:
+			raise TypeError("boids must be a numpy array of floats or integes")
+
+		if self.interaction_params[0,:] == [0, 0, 0, 0]:
+			raise ValueError("interaction parameters are not valid")
+
+		if self.boids[0,:] != 4:
+			raise ValueError("boids must be 4XN numpy array")
+
+
 
 		retreat_distance = self.interaction_params[1]
 
@@ -27,6 +62,24 @@ class Flight(object):
 
 
 	def fly_together(self):
+
+
+		if self.interaction_params[0,:] !=4:
+			raise ValueError("interaction_params must have 4 values")
+
+		for i in range(len(self.interaction_params)):
+			if self.interaction_params[i] == 0:
+				raise ValueError("invalid interaction parameters")
+
+		if type(self.boids[:,:]) == str:
+			raise TypeError("boids must be a numpy array of floats or integes")
+
+		if self.interaction_params[0,:] == [0, 0, 0, 0]:
+			raise ValueError("interaction parameters are not valid")
+
+		if self.boids[0,:] != 4:
+			raise ValueError("boids must be 4XN numpy array")
+
 
 		attraction_distance = self.interaction_params[2]
 		drag_strength = self.interaction_params[3]
@@ -41,6 +94,7 @@ class Flight(object):
 
 	def update_boids(self):
 
+
 		self = self.fly_towards_middle().fly_apart().fly_together()
 
 		self.boids[:,0] = self.boids[:,0] + self.boids[:,2]
@@ -48,7 +102,12 @@ class Flight(object):
 
 		return self
 
+
 	def num_boids(self):
+
+		if len(self.boids[:,0]) == 0:
+			return ValueError("where are all the boids?")
+			
 		return len(self.boids[:,0])
 
 	def get_x(self):
