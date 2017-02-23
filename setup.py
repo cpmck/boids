@@ -8,6 +8,6 @@ setup(
 		package_data={
         '': ['*.yaml','*yml'],},
 		install_requires = ['numpy','matplotlib','pyyaml'], #add all packages
-		incluse_package_data = 'True'
+		include_package_data = True
 
 )
