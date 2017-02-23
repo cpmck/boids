@@ -6,13 +6,14 @@ from boids.flock import Flock
 from boids.flight import Flight
 from argparse import ArgumentParser
 import yaml
+import os
 
 def process():
 
 
 	_ROOT = os.path.abspath(os.path.dirname(__file__))
-    with open(os.path.join(_ROOT,'boids/config/config.yaml')) as config_file:
-        config = yaml.load(config)
+	with open(os.path.join(_ROOT,'config/config.yaml')) as config_file:
+		config = yaml.load(config_file)
 
 
 	num_boids = config["number_of_boids"]
