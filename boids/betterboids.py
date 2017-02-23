@@ -11,7 +11,7 @@ def process():
 
 
 	_ROOT = os.path.abspath(os.path.dirname(__file__))
-    with open(os.path.join(_ROOT,'config.yaml')) as config_file:
+    with open(os.path.join(_ROOT,'config/config.yaml')) as config_file:
         config = yaml.load(config)
 
 
