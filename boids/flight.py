@@ -9,17 +9,11 @@ class Flight(object):
 		if type(self.boids[:,:]) == str:
 			raise TypeError("boids must be a numpy array of floats or integes")
 
-		for i in range(len(self.interaction_params)):
-			if self.interaction_params[i] == 0:
-				raise ValueError("invalid interaction parameters")
-
-		if self.boids[0,:] != 4:
+		if len(self.boids[0,:]) != 4:
 			raise ValueError("boids must be 4XN numpy array")
 
-		if self.interaction_params[0,:] !=4:
-			raise ValueError("interaction_params must have 4 values")
 
-		if self.interaction_params[0,:] == [0, 0, 0, 0]:
+		if self.interaction_params[:].any() == 0:
 			raise ValueError("interaction parameters are not valid")
 
 
@@ -33,20 +27,14 @@ class Flight(object):
 
 	def fly_apart(self):
 
-		if self.interaction_params[0,:] !=4:
-			raise ValueError("interaction_params must have 4 values")
-
-		for i in range(len(self.interaction_params)):
-			if self.interaction_params[i] == 0:
-				raise ValueError("invalid interaction parameters")
 
 		if type(self.boids[:,:]) == str:
 			raise TypeError("boids must be a numpy array of floats or integes")
 
-		if self.interaction_params[0,:] == [0, 0, 0, 0]:
+		if self.interaction_params[:].any() == 0:
 			raise ValueError("interaction parameters are not valid")
 
-		if self.boids[0,:] != 4:
+		if len(self.boids[0,:]) != 4:
 			raise ValueError("boids must be 4XN numpy array")
 
 
@@ -64,20 +52,15 @@ class Flight(object):
 	def fly_together(self):
 
 
-		if self.interaction_params[0,:] !=4:
-			raise ValueError("interaction_params must have 4 values")
 
-		for i in range(len(self.interaction_params)):
-			if self.interaction_params[i] == 0:
-				raise ValueError("invalid interaction parameters")
 
 		if type(self.boids[:,:]) == str:
 			raise TypeError("boids must be a numpy array of floats or integes")
 
-		if self.interaction_params[0,:] == [0, 0, 0, 0]:
+		if self.interaction_params[:].any() == 0:
 			raise ValueError("interaction parameters are not valid")
 
-		if self.boids[0,:] != 4:
+		if len(self.boids[0,:]) != 4:
 			raise ValueError("boids must be 4XN numpy array")
 
 

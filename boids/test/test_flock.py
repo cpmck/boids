@@ -5,7 +5,6 @@ from matplotlib import pyplot as plt
 from matplotlib import animation
 from nose.tools import assert_equal
 from nose.tools import assert_raises
-import mock
 import yaml
 
 def test_num_boids_positive_int():

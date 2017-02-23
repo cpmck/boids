@@ -6,5 +6,6 @@ from boids.flock import Flock
 from boids.flight import Flight
 from argparse import ArgumentParser
 import yaml
+import os
 from nose.tools import assert_equal
 from nose.tools import assert_raises
