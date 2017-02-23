@@ -1,1 +1,1 @@
-include boids/config *.yaml
+include boids/config/config.yaml
