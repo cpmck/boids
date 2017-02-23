@@ -6,6 +6,7 @@ setup(
 		packages = find_packages(exclude=['test']),
 		scripts = ['scripts/flyBoids'],
 		data_files = ["boids/config/config.yaml"],
-		install_requires = ['numpy','matplotlib','pyyaml'] #add all packages
+		install_requires = ['numpy','matplotlib','pyyaml'], #add all packages
+		incluse_package_data = True
 
 )
