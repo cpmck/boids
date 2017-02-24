@@ -10,3 +10,4 @@ To cite this particulat version of the code, cite:
 
 author:		Conor Mc Keever
 URL:		https://github.com/cpmck/boids.git
+year:		2017
